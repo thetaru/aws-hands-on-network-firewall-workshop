@@ -48,7 +48,7 @@ resource "aws_networkfirewall_rule_group" "HttpPortRuleGroup" {
 }
 
 # Network Firewall Policy
-resource "aws_networkfirewall_firewall_policy" "FirewallPolicy" {
+resource "aws_networkfirewall_firewall_policy" "ANFW_Lab_Policy" {
   name = "ANFW-Lab-Policy"
 
   firewall_policy {
@@ -72,4 +72,14 @@ resource "aws_networkfirewall_firewall_policy" "FirewallPolicy" {
     aws_networkfirewall_rule_group.AmazonDomainRuleGroup,
     aws_networkfirewall_rule_group.HttpPortRuleGroup,
   ]
+}
+
+# Network Firewall
+resource "aws_networkfirewall_firewall" "ANFW_Lab" {
+  name                = "ANFW-Lab"
+  firewall_policy_arn = aws_networkfirewall_firewall_policy.ANFW_Lab_Policy.arn
+  vpc_id              = aws_vpc.Inspection_VPC.id
+  subnet_mapping {
+    subnet_id = aws_subnet.Inspection_VPC_Firewall_Subnet.id
+  }
 }
