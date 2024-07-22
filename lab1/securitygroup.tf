@@ -4,7 +4,7 @@ resource "aws_security_group" "Webserver_Security_Group" {
   vpc_id      = aws_vpc.Inspection_VPC.id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "WebServer_Security_Group_Ingress_Rule" {
+resource "aws_vpc_security_group_ingress_rule" "Webserver_Security_Group_Ingress_Rule" {
   security_group_id = aws_security_group.Webserver_Security_Group.id
   cidr_ipv4   = "10.0.0.0/8"
   ip_protocol = "icmp"
@@ -12,7 +12,7 @@ resource "aws_vpc_security_group_ingress_rule" "WebServer_Security_Group_Ingress
   to_port     = -1
 }
 
-resource "aws_vpc_security_group_egress_rule" "VPC_A_Security_Group_Egress_Rule" {
+resource "aws_vpc_security_group_egress_rule" "Webserver_Security_Group_Egress_Rule" {
   security_group_id = aws_security_group.Webserver_Security_Group.id
   cidr_ipv4   = "0.0.0.0/0"
   ip_protocol = -1
